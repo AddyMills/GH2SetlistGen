@@ -15,9 +15,14 @@ class SongInfo:
     else:
         self.master = False
     self.p2type=p2type
-    self.songTracks=int(songTracks)
-    self.guitarTracks=int(guitarTracks)
-    self.player2Tracks=int(player2Tracks)
+    try:
+        self.songTracks=int(songTracks)
+        self.guitarTracks=int(guitarTracks)
+        self.player2Tracks=int(player2Tracks)
+    except:
+        self.songTracks=songTracks
+        self.guitarTracks=guitarTracks
+        self.player2Tracks=player2Tracks
     self.songPan=songPan
     self.guitarPan=guitarPan
     self.player2Pan=player2Pan
@@ -27,7 +32,10 @@ class SongInfo:
     self.songCores=songCores
     self.guitarCores=guitarCores
     self.player2Cores=player2Cores
-    self.hopoThresh=int(hopoThresh)
+    try:
+        self.hopoThresh=int(hopoThresh)
+    except:
+        self.hopoThresh=hopoThresh
     self.animTempo=animTempo
     self.prevStart=prevStart
     self.prevEnd=prevEnd
@@ -41,9 +49,14 @@ class SongInfo:
         self.bandCenter = "metal_keyboard"
     else:
         self.bandCenter = "metal_singer"
-    self.songRhythmTracks=int(tracksRhythmSong)
-    self.guitarRhythmTracks=int(tracksRhythmGuitar)
-    self.player2RhythmTracks=int(tracksRhythmPlayer2)
+    try:
+        self.songRhythmTracks=int(tracksRhythmSong)
+        self.guitarRhythmTracks=int(tracksRhythmGuitar)
+        self.player2RhythmTracks=int(tracksRhythmPlayer2)
+    except:
+        self.songRhythmTracks=tracksRhythmSong
+        self.guitarRhythmTracks=tracksRhythmGuitar
+        self.player2RhythmTracks=tracksRhythmPlayer2
     self.songRhythmPan=songRhythmPan
     self.guitarRhythmPan=guitarRhythmPan
     self.player2RhythmPan=player2RhythmPan
@@ -185,7 +198,10 @@ with open ("songs.dta","w") as f:
         next(songs_reader)
         for song in songs_reader:
             s = SongInfo(*song) #s is short for song
-            createDTA(s)
+            if not str(s.songTracks).isnumeric():
+                continue
+            else:
+                createDTA(s)
     songs.close()
     sys.stdout = original_stdout # Reset the standard output to its original value
     
