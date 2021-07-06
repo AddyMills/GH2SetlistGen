@@ -47,6 +47,8 @@ class SongInfo:
         self.bandCenter = "female_singer"
     elif bandCenter.lower() == "keys":
         self.bandCenter = "metal_keyboard"
+    elif bandCenter.lower() == "none":
+        self.bandCenter == ""
     else:
         self.bandCenter = "metal_singer"
     try:
