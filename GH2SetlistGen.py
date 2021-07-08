@@ -1,9 +1,23 @@
 import csv
 import sys
+import random
 
 inFile = sys.argv[1]
 
 original_stdout = sys.stdout # Save a reference to the original standard output
+
+chars = ["alterna1","alterna2","classic","deathmetal1","deathmetal2","funk1","glam1","glam2","goth1","goth2","grim","metal1","metal2","punk1","punk2","rock1","rock2","rockabill1","rockabill2"]
+guitars = ["lespaul","sg","flying_v","explorer","lespaul_doublecut","firebird","epiphone_coronet","kramer_vanguard","moderne","corvus","es335","eds","lespaul_doublecut_sticker","lespaul_sonex","lespaul_marauder","epiphone_casino","epiphone_sheraton","chet_atkins"]
+venues = ["battle","small1","small2","big","theatre","fest","arena","stone"]
+
+class quickplayData:
+  def __init__(self, char, guitar, venue):
+    self.char = random.choice(char)
+    if self.char == "grim":
+        self.guitar = "scythe"
+    else:
+        self.guitar = random.choice(guitar)
+    self.venue = random.choice(venue)
 
 class SongInfo:
   def __init__(self, shortname,name,artist,master,p2type,songTracks,guitarTracks,player2Tracks,songPan,guitarPan,player2Pan,songVolume,guitarVolume,player2Volume,songCores,guitarCores,player2Cores,hopoThresh,animTempo,prevStart,prevEnd,bandBass,bandCenter,tracksRhythmSong,tracksRhythmGuitar,tracksRhythmPlayer2,songRhythmPan,guitarRhythmPan,player2RhythmPan,songRhythmVolume,guitarRhythmVolume,player2RhythmVolume,songRhythmCores,guitarRhythmCores,player2RhythmCores):
@@ -180,6 +194,14 @@ def trackString(songTracks):
         songString = ""
     return songString
 
+def quickplayGen():
+    q = quickplayData(chars, guitars, venues)
+    print("   (quickplay")
+    print("      (character_outfit "+q.char+")")
+    print("      (guitar "+q.guitar+")")
+    print("      (venue "+q.venue+")")
+    return
+
 def createDTA(y): #Function to create nice looking .dta Files. y is the song class.
     print("("+y.shortname)
     print("   (name "+addQ(y.name))
@@ -189,6 +211,7 @@ def createDTA(y): #Function to create nice looking .dta Files. y is the song cla
     print("   (anim_tempo "+y.animTempo+")")
     print("   (preview "+y.prevStart+" "+y.prevEnd+")")
     createBand(y)
+    quickplayGen()
     closeSong()
     return
 
