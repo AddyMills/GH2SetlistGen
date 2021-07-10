@@ -199,7 +199,7 @@ def quickplayGen():
     print("   (quickplay")
     print("      (character_outfit "+q.char+")")
     print("      (guitar "+q.guitar+")")
-    print("      (venue "+q.venue+")")
+    print("      (venue "+q.venue+"))")
     return
 
 def createDTA(y): #Function to create nice looking .dta Files. y is the song class.
